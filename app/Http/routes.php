@@ -150,6 +150,7 @@ Route::group(['prefix' => 'narrowcasting', 'as' => 'narrowcasting::'], function 
 
 /*
  * Routes related to events.
+ * Important: routes in this block always use event_id or a relevent other ID. activity_id is in principle never used.
  */
 Route::group(['prefix' => 'events', 'as' => 'event::'], function () {
 
@@ -162,6 +163,11 @@ Route::group(['prefix' => 'events', 'as' => 'event::'], function () {
 
     Route::get('/archive/{year}', ['as' => 'archive', 'uses' => 'EventController@archive']);
 
+    // Related to participation
+    Route::get('/participate/{id}', ['as' => 'addparticipation', 'uses' => 'ParticipationController@create']);
+    Route::get('/unparticipate/{participation_id}', ['as' => 'deleteparticipation', 'uses' => 'ParticipationController@destroy']);
+
+    // Show event
     Route::get('/{id}', ['as' => 'show', 'uses' => 'EventController@show']);
 
 });
